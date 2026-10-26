@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BM Sydney Project Delivery Roadmap</title>
+  <meta name="description" content="Dynamic BM Sydney project delivery and installation roadmap." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">BM SYDNEY · STANDARD RESIDENTIAL</p>
+      <h1>Project Delivery &amp; Installation Roadmap</h1>
+      <p class="subtitle">LGS framing + structural steel · Builder drawings to site installation</p>
+    </div>
+    <div class="hero-actions no-print">
+      <button id="editBtn" class="primary">Edit roadmap</button>
+      <button id="printBtn">Print / PDF</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="kpis" aria-label="Project milestones">
+      <article class="kpi">
+        <span>WORKING DAYS</span>
+        <strong id="workingDays">30</strong>
+        <small>Overall planning target</small>
+      </article>
+      <article class="kpi">
+        <span>PRODUCTION RELEASE</span>
+        <strong id="productionRelease">D16</strong>
+        <small>Engineering sign-off + final check</small>
+      </article>
+      <article class="kpi">
+        <span>INSTALLATION START</span>
+        <strong id="installationStart">D30</strong>
+        <small>After QA, delivery and site readiness</small>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>01 · Delivery Flow</h2>
+        <span>Two parallel streams: LGS design / structural steel detailing</span>
+      </div>
+      <div class="flow" id="flowCards"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>02 · Work Breakdown Structure + Gantt</h2>
+        <span>PRED. = finish-to-start dependency · D = elapsed working day</span>
+      </div>
+
+      <div class="legend no-print" id="legend"></div>
+
+      <div class="gantt-wrap">
+        <div class="gantt" id="gantt"></div>
+      </div>
+    </section>
+
+    <section class="rules">
+      <h2>03 · Non-negotiable Scheduling Rules</h2>
+      <div class="rule-grid">
+        <article>
+          <h3>Purchase steel early</h3>
+          <p>Steel purchasing follows BM coordination, not engineering. Order only verified sections and quantities; confirm supplier lead time.</p>
+        </article>
+        <article>
+          <h3>10 days for steel fabrication</h3>
+          <p>Allow 10 full working days for fabrication and finishing, followed by 2 days for QA. Start only after sign-off and material receipt.</p>
+        </article>
+        <article>
+          <h3>D30 = installation start</h3>
+          <p>Installation starts only after QA, materials, delivery and site / installer readiness. Builders must confirm access and workfront.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="editorDialog">
+    <form method="dialog" class="editor-shell">
+      <div class="editor-header">
+        <div>
+          <h2>Edit Roadmap</h2>
+          <p>Build Category → Task → Subtask. Subtasks can have their own durations, predecessors and Gantt bars.</p>
+        </div>
+        <button value="cancel" aria-label="Close">✕</button>
+      </div>
+
+      <div class="toolbar">
+        <button type="button" id="addTaskBtn">+ Add task</button>
+        <button type="button" id="addSubtaskBtn">+ Add subtask</button>
+        <button type="button" id="saveBtn" class="primary">Save changes</button>
+        <button type="button" id="exportBtn">Export JSON</button>
+        <label class="file-btn">Import JSON<input type="file" id="importFile" accept=".json,application/json" /></label>
+        <button type="button" id="resetBtn">Reset default</button>
+      </div>
+
+      <div class="editor-help">
+        <strong>How hierarchy works:</strong>
+        A <b>Task</b> is a main item under a category. A <b>Subtask</b> must choose a Parent Task.
+        Parent tasks can be either <b>summary-only</b> or have their own duration. Summary-only tasks calculate their bar from their subtasks.
+      </div>
+
+      <div class="editor-table-wrap">
+        <table class="editor-table">
+          <thead>
+            <tr>
+              <th>ID</th><th>Level</th><th>Category</th><th>Parent Task</th><th>Name</th><th>Owner</th>
+              <th>Pred 1</th><th>Pred 2</th><th>Pred 3</th><th>Duration</th><th>Summary?</th><th>Colour</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="editorBody"></tbody>
+        </table>
+      </div>
+      <p id="editorMessage" class="editor-message" aria-live="polite"></p>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
